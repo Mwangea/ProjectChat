@@ -20,9 +20,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.projectchat.MainActivity;
 import com.example.projectchat.R;
 import com.example.projectchat.databinding.ActivitySignUpBinding;
 import com.example.projectchat.utilities.Constants;
+import com.example.projectchat.utilities.PrefernceManager;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
@@ -32,7 +34,9 @@ import java.util.HashMap;
 
 public class SignUpActivity extends AppCompatActivity {
     private ActivitySignUpBinding binding;
+    private PrefernceManager prefernceManager;
     private String encodedImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
+        prefernceManager = new PrefernceManager(getApplicationContext());
         setListeners();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -81,10 +86,18 @@ public class SignUpActivity extends AppCompatActivity {
         database.collection(Constants.KEY_COLLECTION_USERS)
                 .add(user)
                 .addOnSuccessListener(documentReference ->  {
-
+                     loading(false);
+                     prefernceManager.putBoolean(Constants.KEY_IS_SIGNED_IN, true);
+                     prefernceManager.putString(Constants.KEY_USER_ID, documentReference.getId());
+                     prefernceManager.putString(Constants.KEY_NAME, binding.inputName.getText().toString());
+                     prefernceManager.putString(Constants.KEY_IMAGE, encodedImage);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 })
                 .addOnFailureListener(exception -> {
-
+                     loading(false);
+                     showToast(exception.getMessage());
                 });
 
     }
