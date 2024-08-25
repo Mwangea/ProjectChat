@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Peer</string>
+    <string name="welcome_back">Welcome Back!!</string>
+    <string name="login_to_continue">Login to continue</string>
+    <string name="johndoe_gmail_com">johndoe@gmail.com</string>
+    <string name="password">password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="add_image">Add Image</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="confirm_password">confirm password</string>
+    <string name="sign_up">Sign up</string>
+    <string name="already_have_an_account">Already have an account?</string>
+</resources>
