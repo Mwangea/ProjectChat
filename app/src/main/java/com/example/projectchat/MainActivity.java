@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.projectchat.activities.SignInActivity;
+import com.example.projectchat.activities.UserActivity;
 import com.example.projectchat.databinding.ActivityMainBinding;
 import com.example.projectchat.utilities.Constants;
 import com.example.projectchat.utilities.PrefernceManager;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setListeners(){
         binding.imageSign0ut.setOnClickListener(v -> signOut());
+        binding.fabNewChat.setOnClickListener(v ->
+                startActivity(new Intent(getApplicationContext(), UserActivity.class)));
     }
 
 
@@ -76,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                         prefernceManager.getString(Constants.KEY_USER_ID)
                 );
         documentReference.update(Constants.KEY_FCM_TOKEN, token)
-                .addOnSuccessListener(unused -> showToast("Token updated successfully"))
+
                 .addOnFailureListener(e -> showToast("Unable to update token"));
 
     }

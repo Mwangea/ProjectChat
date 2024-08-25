@@ -12,4 +12,7 @@
     <string name="confirm_password">confirm password</string>
     <string name="sign_up">Sign up</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="select_user">select user</string>
+    <string name="type_a_message">type a message</string>
+    <string name="online">online</string>
 </resources>
